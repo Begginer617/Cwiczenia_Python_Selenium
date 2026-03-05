@@ -211,3 +211,6 @@ chromedriver
 chromedriver.exe
 geckodriver
 geckodriver.exe
+
+
+.idea/
