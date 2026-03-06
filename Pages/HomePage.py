@@ -1,21 +1,32 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from Pages.BasePage import BasePage
 
-class HomePage(BasePage):
 
-    # URL strony głównej — dzięki temu test nie musi znać adresu.
+class HomePage(BasePage):
+    # LOCAKALIZATORY
+
     URL = "https://automationintesting.online/"
 
-    # Lokator przycisku "Book this room".
-    # To jest przykład — jeśli na stronie jest inny przycisk, zmienimy go później.
-    BOOK_BUTTON = (By.CSS_SELECTOR, "a.btn.btn-primary")
+    BOOK_NOW = (By.XPATH, "//a[contains(@href, '#booking')]")
+    CHECK_AVAILABILITY = (By.XPATH, "//a[contains(@class,'openBooking')]")
+    CHECK_IN = (By.XPATH, "//input[@id='checkin']")
+    CHECK_OUT = (By.XPATH, "//input[@id='checkout']")
+    WELCOME_TEXT = (By.XPATH, "//p[contains(@class,'lead')]")
 
-    # Metoda otwierająca stronę główną.
-    # Test wywoła home_page.open(), a driver wejdzie na URL.
+    # METODY
+
     def open(self):
         self.driver.get(self.URL)
 
-    # Metoda klikająca przycisk "Book this room".
-    # Używa metody click() z BasePage, więc nie musisz pisać WebDriverWait.
-    def go_to_booking(self):
-        self.click(self.BOOK_BUTTON)
+    def click_check_availability_to_booking(self):
+        self.click(self.CHECK_AVAILABILITY)
+
+    # Metoda sprawdzająca czy tekst się nie zmienił
+    def get_text(self, locator):
+        # Znajdujemy element na stronie
+        element = self.driver.find_element(*locator)
+        # Sprawdzamy, czy jest widoczny
+        assert element.is_displayed()
+        # Czekamy aż Selenium potwierdzi widoczność i zwracamy tekst
+        return self.wait.until(EC.visibility_of_element_located(locator)).text

@@ -1,6 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class BasePage:
     # Konstruktor – uruchamia się przy tworzeniu obiektu strony.
     # Przechowuje driver i tworzy WebDriverWait, żeby nie klikać za szybko.
@@ -38,3 +39,5 @@ class BasePage:
             return True
         except:
             return False
+
+
