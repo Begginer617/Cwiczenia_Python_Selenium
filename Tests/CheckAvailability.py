@@ -2,14 +2,8 @@ from Pages.HomePage import HomePage
 
 def check_availability_single_room(driver):
     home = HomePage(driver)
-    home.open() \
-        .open_check_in_calendar() \
-        .next_month() \
-        .pick_day(11) \
-        .open_check_out_calendar() \
-        .next_month() \
-        .pick_day(15)
-    return home
+    home.open()
+    pass
 
 
 

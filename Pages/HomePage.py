@@ -1,3 +1,4 @@
+import random
 from Pages.BasePage import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +14,13 @@ class HomePage(BasePage):
     Send_Us_A_Message_Subject = (By.ID, "subject")
     Send_Us_A_Message_Message = (By.ID, "description")
     Send_Us_A_Message_Submit_Button = (By.XPATH, '//*[@id="contact"]//button')
+
+    # Calendar locators
+    Calendar_Check_In_Field = (By.XPATH, '//*[@id="checkin"]')
+    Calendar_Check_Out_Field = (By.XPATH, '//*[@id="checkout"]')
+    Calendar_Next_Month = (By.XPATH, '//button[contains(@class, "react-datepicker__navigation--next")]')
+    Calendar_Previous_Month = (By.XPATH, '//button[contains(@class, "react-datepicker__navigation--previous")]')
+    Calendar_Day = (By.XPATH, '//div[contains(@class, "react-datepicker__day") and not(contains(@class, "outside-month"))]')
 
 
     HEADER = (By.XPATH, '//div[contains(@class, "modal")]//h2')
@@ -50,16 +58,27 @@ class HomePage(BasePage):
         self.driver.execute_script("arguments[0].click();", button)
         return self
 
-    def open_in_calendar(self):
-        pass
-    def next_month(self):
-        pass
-    def previous_month(self):
-        pass
-    def pick_day(self):
-        pass
+    def pick_random_day(self):
+        days = self.wait.until(EC.presence_of_all_elements_located(self.Calendar_Day))
+        enabled_days = [day for day in days if day.is_enabled()]
+        random.choice(enabled_days).click()
+        return self
+
     def open_check_in_calendar(self):
-        pass
+        self.click(self.Calendar_Check_In_Field)
+        return self
     def open_check_out_calendar(self):
-        pass
+        self.click(self.Calendar_Check_Out_Field)
+        return self
+    def next_month_button_operation(self):
+        self.click(self.Calendar_Next_Month)
+        return self
+    def previous_month_button_operation(self):
+        self.click(self.Calendar_Previous_Month)
+        return self
+    def pick_day(self):
+        return self.pick_random_day()
+
+    def calendar_days_selection(self):
+        return self.open_check_in_calendar().pick_random_day().open_check_out_calendar().pick_random_day()
 
