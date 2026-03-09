@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class HomePage(BasePage):
-
     URL = "https://automationintesting.online/"
 
     Send_Us_A_Message_Name = (By.ID, "name")
@@ -28,12 +27,12 @@ class HomePage(BasePage):
         self.type(self.Send_Us_A_Message_Phone, data.phone())
         self.type(self.Send_Us_A_Message_Subject, data.subject())
         self.type(self.Send_Us_A_Message_Message, data.message())
+        return self
 
     def submit_contact_form(self):
         # scroll na dół strony
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
         button = self.wait.until(EC.element_to_be_clickable(self.Send_Us_A_Message_Submit_Button))
-
         # klik przez JS — jedyny stabilny sposób na tej stronie
         self.driver.execute_script("arguments[0].click();", button)
+        return self
