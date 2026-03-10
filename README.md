@@ -1,5 +1,3 @@
-Oto Twój workflow i struktura pracy z repozytorium przekształcone na formę bezosobową. Taka forma idealnie nadaje się do dokumentacji projektu (np. w pliku CONTRIBUTING.md lub README.md), ponieważ brzmi jak zestaw obiektywnych zasad.
-
 🎯 Podsumowanie workflow
 Tworzenie brancha typu feature.
 
